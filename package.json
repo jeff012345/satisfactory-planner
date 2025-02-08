@@ -11,8 +11,5 @@
   "devDependencies": {
     "vite": "^6.0.5"
   },
-  "dependencies": {
-    "collect.js": "^4.36.1",
-    "uuid": "^11.0.5"
-  }
+  "dependencies": {}
 }
