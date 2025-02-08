@@ -6,7 +6,7 @@ document.querySelector('#app').innerHTML = `
 <div>
     <p>
         Output Quantity/min:
-        <input type="number" id="outputQuantity" value="1" min="1">
+        <input type="number" id="outputQuantity" value="10" min="1">
     </p>
     <p>
         Output: <select id="materials"></select>
