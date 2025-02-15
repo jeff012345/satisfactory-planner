@@ -29,5 +29,3 @@ if (option) {
     option.selected = true;
     select.dispatchEvent(new Event("change"));
 }
-
-

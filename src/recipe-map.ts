@@ -62,6 +62,7 @@ export function createOutputSelect() {
     const select = document.getElementById("materials") as HTMLSelectElement;
     select.innerHTML = Object.values(Material)
         .filter(key => typeof key === 'string')
+        .sort()
         .map(key => `<option name="${key}" value="${key}">${key}</option>`)
         .join("");
     select.selectedIndex = -1;
