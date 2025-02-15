@@ -10,6 +10,7 @@ class MaterialNode {
 }
 
 const map = new Map<Material, MaterialNode>();
+const mapFriendly = new Map<String, MaterialNode>();
 
 export function createMap() {
     for (const recipe of RECIPES) {
@@ -18,6 +19,7 @@ export function createMap() {
             if (!materialNode) {
                 materialNode = new MaterialNode(output.material);
                 map.set(output.material, materialNode);
+                mapFriendly.set(Material[output.material], materialNode);
             }
 
             materialNode.outputRecipes.push(recipe);
@@ -36,7 +38,7 @@ export function createMap() {
     }
 
     console.log(map);
-
+    console.log(mapFriendly);
 }
 
 export function findRecipes(output: Material) {
@@ -80,7 +82,39 @@ export function createOutputSelect() {
         const material = Material[select.value];
         const recipes = findRecipes(material);
         element.innerHTML = outputPaths(recipes, material, new Map<Material, number>(), outputQuantity);
+
+        document.querySelectorAll("#recipes .next-path-expand")
+            .forEach(element => {
+                console.log("next-path-expand", element);
+               element.addEventListener("click", expandNextPath);
+            });
+
+        document.querySelectorAll("#recipes .next-path-collapse")
+            .forEach(element => {
+                console.log("next-path-collapse", element);
+                element.addEventListener("click", collapseNextPath);
+            });
     });
+}
+
+function expandNextPath(event: Event) {
+    console.log("expandNextPath", event);
+    const expand = event.target as HTMLElement;
+    const parent = expand.parentNode as HTMLElement;
+
+    console.log("parent", parent);
+    parent.classList.remove("collapse");
+    parent.classList.add("expand");
+}
+
+
+function collapseNextPath(event: Event) {
+    console.log("collapseNextPath", event);
+    const expand = event.target as HTMLElement;
+    const parent = expand.parentNode as HTMLElement;
+
+    parent.classList.remove("expand");
+    parent.classList.add("collapse");
 }
 
 function outputPaths(recipes: Recipe[],
@@ -97,7 +131,7 @@ function outputPaths(recipes: Recipe[],
             const recipeRate = neededOutputRate / outputForNeeded.rate;
             return `
                 <div class="recipe">
-                    ALT ${index}
+                    <h4>ALT ${index}: ${recipe.name} in ${Building[recipe.building]}</h4>
                     ${outputPath(recipe, totals, recipeRate)}
                 </div>
                 <hr />
@@ -109,9 +143,9 @@ function outputPaths(recipes: Recipe[],
 function outputPath(recipe: Recipe, totals: Map<Material, number>, recipeRate: number): string {
     return `
     <div>
-        <h5>${recipe.name} in ${Building[recipe.building]}</h5>
         <div class="outputs">
             <div>Outputs</div>            
+            <!-- TODO subtract outputs from totals -->
             <div>${printOutputs(recipe.outputs, recipeRate)}</div>
         </div>
         <br />
@@ -119,9 +153,11 @@ function outputPath(recipe: Recipe, totals: Map<Material, number>, recipeRate: n
             <div>Inputs</div>
             <div>${makeInputs(recipe.inputs, recipeRate)}</div>
         </div>
-        <div class="next">
+        <div class="next collapse">
             <h5>Next</h5>
-            <div>${nextPaths(recipe.inputs, totals, recipeRate)}</div>
+            <span class="next-path-toggle next-path-expand">(expand)</span>
+            <span class="next-path-toggle next-path-collapse">(collapse)</span>
+            <div class="next-path">${nextPaths(recipe.inputs, totals, recipeRate)}</div>
         </div>
     </div>
     `;
@@ -137,13 +173,21 @@ function nextPaths(inputs: MaterialRate[], totals: Map<Material, number>, scaleF
         totals.set(materialRate.material, current + (materialRate.rate * scaleFactor));
     })
 
+    const existingMaterials = new Set<Material>(totals.keys());
+
     return inputs
         .map(materialRate => [materialRate, findRecipes(materialRate.material)] as [MaterialRate, Recipe[]])
         .map(nextItem => {
             const totalsClone = new Map<Material, number>(totals.entries());
             const recipeScale = nextItem[0].rate * scaleFactor;
+            const recipes = nextItem[1]
+                .filter(recipe => {
+                    const matching = recipe.inputs.find(output => existingMaterials.has(output.material));
+                    console.log("matching", matching);
+                    return matching === undefined;
+                });
 
-            return outputPaths(nextItem[1], nextItem[0].material, totalsClone, recipeScale);
+            return outputPaths(recipes, nextItem[0].material, totalsClone, recipeScale);
         })
         .join("");
 }
@@ -162,5 +206,6 @@ function printTotals(totals: Map<Material, number>): string {
 
 function printOutputs(outputs: MaterialRate[], scaleFactor: number) {
     return outputs
-        .map(output => `${Material[output.material]} at ${output.rate * scaleFactor}/min`)
+        .map(output => `<div>${Material[output.material]} at ${output.rate * scaleFactor}/min</div>`)
+        .join("")
 }

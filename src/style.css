@@ -54,6 +54,46 @@ h1 {
   }
 }
 
+
 div.next {
   margin-left: 5em;
+}
+
+.recipe > h4,
+div.next h5 {
+  display: inline-block;
+}
+
+.next-path-toggle {
+  cursor: pointer;
+  font-size: 0.8em;
+}
+
+.next-path-toggle:hover {
+  color: #535bf2;
+  text-decoration: underline;
+}
+
+.next.collapse > .next-path-expand {
+  display: inline-block;
+}
+
+.next.expand > .next-path-expand {
+  display: none;
+}
+
+.next.collapse > .next-path-collapse {
+  display: none;
+}
+
+.next.expand > .next-path-collapse {
+  display: inline-block;
+}
+
+.next.expand > .next-path {
+  display: block;
+}
+
+.next.collapse > .next-path {
+  display: none;
 }
