@@ -26,13 +26,11 @@ jobs:
       run: |
         npm install
         npm run build
-    - name: Upload GitHub Pages artifact
-      uses: actions/upload-pages-artifact@v3.0.1
-          
+
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v4.6.0
       with:
-        path: "dist/"
+        path: dist/
         overwrite: true
 
   deploy:
