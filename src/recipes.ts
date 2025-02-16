@@ -10,7 +10,8 @@ export enum Material {
     CATERIUM_ORE,
     SULFUR,
     SAM,
-    NITROGEN,
+    NITROGEN_GAS,
+    URANIUM,
 
     IRON_INGOT,
     IRON_ROD,
@@ -90,7 +91,7 @@ export enum Material {
 
     MAGNETIC_FIELD_GENERATOR,
     ASSEMBLY_DIRECTOR_SYSTEM,
-    THERMAL_PROPULISION_ROCKET,
+    THERMAL_PROPULSION_ROCKET,
 
     ENCASED_URANIUM_CELL,
     ELECTROMAGNETIC_CONTROL_ROD,
@@ -121,7 +122,8 @@ export enum Building {
     PACKAGER,
     WATER_EXTRACTOR,
     BLENDER,
-    RESOURCE_WELL_EXTRACTOR
+    RESOURCE_WELL_EXTRACTOR,
+    PARTICLE_ACCELERATOR
 }
 
 export interface Recipe {
@@ -262,7 +264,7 @@ export const RECIPES: Recipe[] = [
         name: "Nitrogen",
         outputs: [
             {
-                material: Material.NITROGEN,
+                material: Material.NITROGEN_GAS,
                 rate: 120
             }
         ],
@@ -1480,6 +1482,358 @@ export const RECIPES: Recipe[] = [
             }
         ],
         building: Building.ASSEMBLER
+    },
+    {
+        name: "Heat Sink",
+        outputs: [
+            {
+                material: Material.HEAT_SINK,
+                rate: 7.5
+            }
+        ],
+        inputs: [
+            {
+                material: Material.COPPER_SHEET,
+                rate: 22.5
+            },
+            {
+                material: Material.ALCLAD_ALUMINIUM_SHEET,
+                rate: 37.5
+            }
+        ],
+        building: Building.ASSEMBLER
+    },
+    {
+        name: "Nitric Acid",
+        outputs: [
+            {
+                material: Material.NITRIC_ACID,
+                rate: 30
+            }
+        ],
+        inputs: [
+            {
+                material: Material.NITROGEN_GAS,
+                rate: 120
+            },
+            {
+                material: Material.WATER,
+                rate: 10
+            },
+            {
+                material: Material.IRON_PLATE,
+                rate: 10
+            }
+        ],
+        building: Building.BLENDER
+    },
+    {
+        name: "Turbo Motor",
+        outputs: [
+            {
+                material: Material.TURBO_MOTOR,
+                rate: 1.875
+            }
+        ],
+        inputs: [
+            {
+                material: Material.COOLING_SYSTEM,
+                rate: 7.5
+            },
+            {
+                material: Material.RADIO_CONTROL_UNIT,
+                rate: 3.75
+            },
+            {
+                material: Material.MOTOR,
+                rate: 7.5
+            },
+            {
+                material: Material.RUBBER,
+                rate: 45
+            }
+        ],
+        building: Building.MANUFACTURER
+    },
+    {
+        name: "Fused Modular Frame",
+        outputs: [
+            {
+                material: Material.FUSED_MODULAR_FRAME,
+                rate: 1.5
+            }
+        ],
+        inputs: [
+            {
+                material: Material.HEAVY_MODULAR_FRAME,
+                rate: 1.5
+            },
+            {
+                material: Material.ALUMINIUM_CASING,
+                rate: 75
+            },
+            {
+                material: Material.NITROGEN_GAS,
+                rate: 37.5
+            }
+        ],
+        building: Building.BLENDER
+    },
+    {
+        name: "Magnetic Field Generator",
+        outputs: [
+            {
+                material: Material.MAGNETIC_FIELD_GENERATOR,
+                rate: 1
+            }
+        ],
+        inputs: [
+            {
+                material: Material.VERSATILE_FRAMEWORK,
+                rate: 2.5
+            },
+            {
+                material: Material.ELECTROMAGNETIC_CONTROL_ROD,
+                rate: 1
+            }
+        ],
+        building: Building.ASSEMBLER
+    },
+    {
+        name: "Thermal Propulsion Rocket",
+        outputs: [
+            {
+                material: Material.THERMAL_PROPULSION_ROCKET,
+                rate: 1
+            }
+        ],
+        inputs: [
+            {
+                material: Material.MODULAR_ENGINE,
+                rate: 2.5
+            },
+            {
+                material: Material.TURBO_MOTOR,
+                rate: 1
+            },
+            {
+                material: Material.COOLING_SYSTEM,
+                rate: 3
+            },
+            {
+                material: Material.FUSED_MODULAR_FRAME,
+                rate: 1
+            }
+        ],
+        building: Building.MANUFACTURER
+    },
+    {
+        name: "Encased Uranium Cell",
+        outputs: [
+            {
+                material: Material.ENCASED_URANIUM_CELL,
+                rate: 25
+            },
+            {
+                material: Material.SULFURIC_ACID,
+                rate: 10
+            }
+        ],
+        inputs: [
+            {
+                material: Material.URANIUM,
+                rate: 50
+            },
+            {
+                material: Material.CONCRETE,
+                rate: 15
+            },
+            {
+                material: Material.SULFURIC_ACID,
+                rate: 40
+            }
+        ],
+        building: Building.BLENDER
+    },
+    {
+        name: "Uranium Fuel Rod",
+        outputs: [
+            {
+                material: Material.URANIUM_FUEL_ROD,
+                rate: 0.4
+            }
+        ],
+        inputs: [
+            {
+                material: Material.ENCASED_URANIUM_CELL,
+                rate: 20
+            },
+            {
+                material: Material.ENCASED_INDUSTRIAL_BEAM,
+                rate: 1.2
+            },
+            {
+                material: Material.ELECTROMAGNETIC_CONTROL_ROD,
+                rate: 2
+            }
+        ],
+        building: Building.MANUFACTURER
+    },
+    {
+        name: "Non-Fissile Uranium",
+        outputs: [
+            {
+                material: Material.NON_FISSILE_URANIUM,
+                rate: 50
+            },
+            {
+                material: Material.WATER,
+                rate: 15
+            }
+        ],
+        inputs: [
+            {
+                material: Material.URANIUM_WASTE,
+                rate: 37.5
+            },
+            {
+                material: Material.SILICA,
+                rate: 25
+            },
+            {
+                material: Material.NITRIC_ACID,
+                rate: 15
+            },
+            {
+                material: Material.SULFURIC_ACID,
+                rate: 25
+            }
+        ],
+        building: Building.BLENDER
+    },
+    {
+        name: "Plutonium Pellet",
+        outputs: [
+            {
+                material: Material.PLUTONIUM_PELLET,
+                rate: 30
+            }
+        ],
+        inputs: [
+            {
+                material: Material.NON_FISSILE_URANIUM,
+                rate: 100
+            },
+            {
+                material: Material.URANIUM_WASTE,
+                rate: 25
+            }
+        ],
+        building: Building.PARTICLE_ACCELERATOR
+    },
+    {
+        name: "Encased Plutonium Cell",
+        outputs: [
+            {
+                material: Material.ENCASED_PLUTONIUM_CELL,
+                rate: 5
+            }
+        ],
+        inputs: [
+            {
+                material: Material.PLUTONIUM_PELLET,
+                rate: 10
+            },
+            {
+                material: Material.CONCRETE,
+                rate: 20
+            }
+        ],
+        building: Building.ASSEMBLER
+    },
+    {
+        name: "Plutonium Fuel Rod",
+        outputs: [
+            {
+                material: Material.PLUTONIUM_FUEL_ROD,
+                rate: 0.25
+            }
+        ],
+        inputs: [
+            {
+                material: Material.ENCASED_PLUTONIUM_CELL,
+                rate: 7.5
+            },
+            {
+                material: Material.STEEL_BEAM,
+                rate: 4.5
+            },
+            {
+                material: Material.ELECTROMAGNETIC_CONTROL_ROD,
+                rate: 1.5
+            },
+            {
+                material: Material.HEAT_SINK,
+                rate: 2.5
+            }
+        ],
+        building: Building.MANUFACTURER
+    },
+    {
+        name: "Copper Powder",
+        outputs: [
+            {
+                material: Material.COPPER_POWDER,
+                rate: 50
+            }
+        ],
+        inputs: [
+            {
+                material: Material.COPPER_INGOT,
+                rate: 300
+            }
+        ],
+        building: Building.CONSTRUCTOR
+    },
+    {
+        name: "Pressure Conversion Cube",
+        outputs: [
+            {
+                material: Material.PRESSURE_CONVERSION_CUBE,
+                rate: 1
+            }
+        ],
+        inputs: [
+            {
+                material: Material.FUSED_MODULAR_FRAME,
+                rate: 1
+            },
+            {
+                material: Material.RADIO_CONTROL_UNIT,
+                rate: 2
+            }
+        ],
+        building: Building.ASSEMBLER
+    },
+    {
+        name: "Nuclear Pasta",
+        outputs: [
+            {
+                material: Material.NUCLEAR_PASTA,
+                rate: 0.5
+            }
+        ],
+        inputs: [
+            {
+                material: Material.COPPER_POWDER,
+                rate: 100
+            },
+            {
+                material: Material.PRESSURE_CONVERSION_CUBE,
+                rate: 0.5
+            }
+        ],
+        building: Building.PARTICLE_ACCELERATOR
     }
 
 
