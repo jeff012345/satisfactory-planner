@@ -78,6 +78,8 @@ export function createOutputSelect() {
         const outputQuantity = Number((document.getElementById("outputQuantity") as HTMLInputElement).value);
         console.log("outputQuantity", outputQuantity);
 
+        localStorage.setItem("last-material", select.value);
+
         // @ts-ignore
         const material = Material[select.value];
         const recipes = findRecipes(material);
@@ -85,13 +87,11 @@ export function createOutputSelect() {
 
         document.querySelectorAll("#recipes .next-path-expand")
             .forEach(element => {
-                console.log("next-path-expand", element);
                element.addEventListener("click", expandNextPath);
             });
 
         document.querySelectorAll("#recipes .next-path-collapse")
             .forEach(element => {
-                console.log("next-path-collapse", element);
                 element.addEventListener("click", collapseNextPath);
             });
     });
@@ -143,17 +143,28 @@ function outputPaths(recipes: Recipe[],
 function outputPath(recipe: Recipe, totals: Map<Material, number>, recipeRate: number): string {
     return `
     <div>
+        <div class="inputs ${recipe.inputs.length === 0 ? "empty" : ""}">
+            <h3>Inputs</h3>
+            <div class="material-rates">
+                <div class="row">
+                    <span>Material</span>
+                    <span>Items / Min</span>
+                </div>
+                ${printMaterialRates(recipe.inputs, recipeRate)}
+            </div>
+        </div>
         <div class="outputs">
-            <div>Outputs</div>            
             <!-- TODO subtract outputs from totals -->
-            <div>${printOutputs(recipe.outputs, recipeRate)}</div>
+            <h3>Outputs</h3> 
+            <div class="material-rates">
+                <div class="row">
+                    <span>Material</span>
+                    <span>Items / Min</span>
+                </div>
+                ${printMaterialRates(recipe.outputs, recipeRate)}
+            </div>
         </div>
-        <br />
-        <div class="inputs">
-            <div>Inputs</div>
-            <div>${makeInputs(recipe.inputs, recipeRate)}</div>
-        </div>
-        <div class="next collapse">
+        <div class="next collapse ${recipe.inputs.length === 0 ? "empty" : ""}">
             <h5>Next</h5>
             <span class="next-path-toggle next-path-expand">(expand)</span>
             <span class="next-path-toggle next-path-collapse">(collapse)</span>
@@ -192,20 +203,19 @@ function nextPaths(inputs: MaterialRate[], totals: Map<Material, number>, scaleF
         .join("");
 }
 
-function makeInputs(inputs: MaterialRate[], scaleFactor: number): string {
-    return inputs
-        .map(input => `<div>${Material[input.material]} at ${input.rate * scaleFactor}/min</div>`)
-        .join("");
-}
-
 function printTotals(totals: Map<Material, number>): string {
     return Array.from(totals.entries())
         .map(entry => `<div>${Material[entry[0]]} = ${entry[1]}</div>`)
         .join("");
 }
 
-function printOutputs(outputs: MaterialRate[], scaleFactor: number) {
-    return outputs
-        .map(output => `<div>${Material[output.material]} at ${output.rate * scaleFactor}/min</div>`)
+function printMaterialRates(materialRates: MaterialRate[], scaleFactor: number) {
+    return materialRates
+        .map(materialRate => `
+            <div class="row">
+                <span>${Material[materialRate.material]}</span>
+                <span>${Number((materialRate.rate * scaleFactor).toFixed(3))}</span>
+            </div>`
+        )
         .join("")
 }

@@ -55,7 +55,7 @@ h1 {
 }
 
 
-div.next {
+div.next-path {
   margin-left: 5em;
 }
 
@@ -96,4 +96,34 @@ div.next h5 {
 
 .next.collapse > .next-path {
   display: none;
+}
+
+.outputs h4,
+.inputs h4 {
+  font-weight: bold;
+}
+
+.inputs.empty,
+.next.empty {
+  display: none;
+}
+
+.material-rates {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: column;
+  max-width: 20em;
+}
+
+.material-rates .row {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.material-rates .row:first-child {
+  font-weight: bold;
+}
+
+.material-rates > div > span:first-child {
+  flex-grow: 1;
 }

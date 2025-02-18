@@ -24,8 +24,11 @@ initOutputQuantity();
 createMap();
 
 const select = document.getElementById("materials") as HTMLSelectElement;
-const option = select.options.namedItem("IRON_ROD");
+
+const lastSelection = localStorage.getItem("last-material") || "IRON_ROD";
+const option = select.options.namedItem(lastSelection);
 if (option) {
     option.selected = true;
     select.dispatchEvent(new Event("change"));
 }
+
