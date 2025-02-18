@@ -123,7 +123,8 @@ export enum Building {
     WATER_EXTRACTOR,
     BLENDER,
     RESOURCE_WELL_EXTRACTOR,
-    PARTICLE_ACCELERATOR
+    PARTICLE_ACCELERATOR,
+    NUCLEAR_POWER_PLANT
 }
 
 export interface Recipe {
@@ -270,6 +271,17 @@ export const RECIPES: Recipe[] = [
         ],
         inputs: [],
         building: Building.RESOURCE_WELL_EXTRACTOR
+    },
+    {
+        name: "Uranium",
+        outputs: [
+            {
+                material: Material.URANIUM,
+                rate: 120
+            }
+        ],
+        inputs: [],
+        building: Building.MINER
     },
     {
         name: 'Iron Ingot',
@@ -1600,6 +1612,34 @@ export const RECIPES: Recipe[] = [
         building: Building.ASSEMBLER
     },
     {
+        name: "Cooling System",
+        outputs: [
+            {
+                material: Material.COOLING_SYSTEM,
+                rate: 6
+            }
+        ],
+        inputs: [
+            {
+                material: Material.HEAT_SINK,
+                rate: 12
+            },
+            {
+                material: Material.RUBBER,
+                rate: 12
+            },
+            {
+                material: Material.WATER,
+                rate: 30
+            },
+            {
+                material: Material.NITROGEN_GAS,
+                rate: 150
+            }
+        ],
+        building: Building.BLENDER
+    },
+    {
         name: "Thermal Propulsion Rocket",
         outputs: [
             {
@@ -1623,6 +1663,27 @@ export const RECIPES: Recipe[] = [
             {
                 material: Material.FUSED_MODULAR_FRAME,
                 rate: 1
+            }
+        ],
+        building: Building.MANUFACTURER
+    },
+
+    {
+        name: "Electromagnetic Control Rod",
+        outputs: [
+            {
+                material: Material.ELECTROMAGNETIC_CONTROL_ROD,
+                rate: 4
+            }
+        ],
+        inputs: [
+            {
+                material: Material.STATOR,
+                rate: 6
+            },
+            {
+                material: Material.AI_LIMITER,
+                rate: 4
             }
         ],
         building: Building.MANUFACTURER
@@ -1834,6 +1895,26 @@ export const RECIPES: Recipe[] = [
             }
         ],
         building: Building.PARTICLE_ACCELERATOR
+    },
+    {
+        name: "Uranium Waste",
+        outputs: [
+            {
+                material: Material.URANIUM_WASTE,
+                rate: 10
+            }
+        ],
+        inputs: [
+            {
+                material: Material.URANIUM_FUEL_ROD,
+                rate: 0.2
+            },
+            {
+                material: Material.WATER,
+                rate: 240
+            }
+        ],
+        building: Building.NUCLEAR_POWER_PLANT
     }
 
 
