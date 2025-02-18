@@ -1935,6 +1935,22 @@ export const RECIPES: Recipe[] = [
             }
         ],
         building: Building.REFINERY
+    },
+    {
+        name: "Cast Screw",
+        outputs: [
+            {
+                material: Material.SCREW,
+                rate: 50
+            }
+        ],
+        inputs: [
+            {
+                material: Material.IRON_INGOT,
+                rate: 12.5
+            }
+        ],
+        building: Building.CONSTRUCTOR
     }
 
 
