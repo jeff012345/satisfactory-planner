@@ -902,7 +902,7 @@ export const RECIPES: Recipe[] = [
         inputs: [
             {
                 material: Material.CATERIUM_ORE,
-                rate: 15
+                rate: 45
             }
         ],
         building: Building.SMELTER
