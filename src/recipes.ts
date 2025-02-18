@@ -1951,6 +1951,106 @@ export const RECIPES: Recipe[] = [
             }
         ],
         building: Building.CONSTRUCTOR
+    },
+    {
+        name: "Steel Cast Plate",
+        outputs: [
+            {
+                material: Material.IRON_PLATE,
+                rate: 45
+            }
+        ],
+        inputs: [
+            {
+                material: Material.IRON_INGOT,
+                rate: 15
+            },
+            {
+                material: Material.STEEL_INGOT,
+                rate: 15
+            }
+        ],
+        building: Building.ASSEMBLER
+    },
+    {
+        name: "Iron Ally Ingot",
+        outputs: [
+            {
+                material: Material.IRON_INGOT,
+                rate: 75
+            }
+        ],
+        inputs: [
+            {
+                material: Material.IRON_ORE,
+                rate: 45
+            },
+            {
+                material: Material.COPPER_ORE,
+                rate: 10
+            }
+        ],
+        building: Building.FOUNDRY
+    },
+    {
+        name: "Wet Concrete",
+        outputs: [
+            {
+                material: Material.CONCRETE,
+                rate: 80
+            }
+        ],
+        inputs: [
+            {
+                material: Material.LIMESTONE,
+                rate: 120
+            },
+            {
+                material: Material.WATER,
+                rate: 100
+            }
+        ],
+        building: Building.REFINERY
+    },
+    {
+        name: "Stitched Iron Plate",
+        outputs: [
+            {
+                material: Material.REINFORCED_IRON_PLATE,
+                rate: 5.625
+            }
+        ],
+        inputs: [
+            {
+                material: Material.IRON_PLATE,
+                rate: 10
+            },
+            {
+                material: Material.WIRE,
+                rate: 37.5
+            }
+        ],
+        building: Building.ASSEMBLER
+    },
+    {
+        name: "Encased Steel Pipe",
+        outputs: [
+            {
+                material: Material.ENCASED_INDUSTRIAL_BEAM,
+                rate: 4
+            }
+        ],
+        inputs: [
+            {
+                material: Material.STEEL_PIPE,
+                rate: 24
+            },
+            {
+                material: Material.CONCRETE,
+                rate: 20
+            }
+        ],
+        building: Building.ASSEMBLER
     }
 
 
