@@ -445,7 +445,7 @@ export const RECIPES: Recipe[] = [
         ],
         inputs: [
             {
-                material: Material.COPPER_INGOT,
+                material: Material.IRON_INGOT,
                 rate: 12.5
             }
         ],
@@ -1915,6 +1915,26 @@ export const RECIPES: Recipe[] = [
             }
         ],
         building: Building.NUCLEAR_POWER_PLANT
+    },
+    {
+        name: "Pure Caterium Ingot",
+        outputs: [
+            {
+                material: Material.CATERIUM_INGOT,
+                rate: 12
+            }
+        ],
+        inputs: [
+            {
+                material: Material.CATERIUM_ORE,
+                rate: 24
+            },
+            {
+                material: Material.WATER,
+                rate: 24
+            }
+        ],
+        building: Building.REFINERY
     }
 
 
